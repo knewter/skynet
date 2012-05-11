@@ -4,7 +4,7 @@ require 'celluloid'
 require 'dcell'
 
 # Join the cluster
-DCell.start directory: { id: 'cluster_parent', addr: 'tcp://127.0.0.1:2042' }
+DCell.start directory: { id: 'cluster_parent', addr: 'tcp://192.168.1.66:2042' }
 
 class ActorLister
   include Celluloid
