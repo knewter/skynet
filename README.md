@@ -3,6 +3,10 @@ The goal of skynet is to build a self-replicating network of Actor objects using
 Celluloid/DCell with properties such that it's hard to kill all the services
 short of shutting down every machine in the network.
 
+*NOTE: The goal is not yet functioning*
+What's working is a basic service listing that, when clicked, executes the
+service on the node it's been clicked that it's running under.
+
 ## Usage
 
 - start the cluster on the machine that will act as the hub.
