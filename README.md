@@ -7,10 +7,14 @@ short of shutting down every machine in the network.
 
 - start the cluster on the machine that will act as the hub.
   - in the end goal, this hub is not required.
+  - `ruby lib/start_cluster.rb`
 - run the server on your local machine (each person playing should run their own
   local server)
+  - `ruby lib/server.rb`
 - make a new actor that joins the cluster
+  - `ruby lib/simple_text_service.rb`
 - ensure that your local sinatra app's index now reflects that actor
+  - visit http://127.0.0.1:7779
 
 ## Prerequisites
 

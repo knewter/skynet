@@ -24,34 +24,54 @@ class Server < Reel::Server
   end
 
   def route(connection, request)
-    if request.url == "/"
+    case request.url
+    when "/"
       instances = @lister.get_instances
       text = render_actor_listing_html(instances)
       connection.respond :ok, text
+    when /\/service\/(.*)\/(.*)/
+      # Important note: Regex match backreferences, though they begin with a
+      # dollar sign, are not traditional globals and are thus threadsafe
+      node = $1
+      service = $2
+      html = html_page do
+        text = "render a service guy - #{node} : #{service}<br />"
+        begin
+          text += DCell::Node[node][service.to_sym].run
+        rescue
+          text += "service failed, maybe not so much around?"
+        end
+      end
+      connection.respond :ok, html
     else
       connection.respond :not_found, "Not found"
     end
   end
 
   def render_actor_listing_html(instances)
-    html = "<html><body>"
-    html += "listing services"
-    instances.each_pair do |node, services|
-      if services.any?
-        html += "<h2>Node: #{node}</h2>"
-        html += "<ul>"
-        services.each do |service|
-          html += "<li>#{service}</li>"
+    html_page do
+      html = ""
+      html += "listing services"
+      instances.each_pair do |node, services|
+        if services.any?
+          html += "<h2>Node: #{node}</h2>"
+          html += "<ul>"
+          services.each do |service|
+            html += "<li>#{link_to_service(node, service)}</li>"
+          end
+          html += "</ul>"
         end
-        html += "</ul>"
       end
+      html
     end
-    html += "</html></body>"
-    html
   end
 
-  def link_to_service(service)
-    "<a href='/service/#{service}'>#{service}</a>"
+  def link_to_service(node, service)
+    "<a href='/service/#{node}/#{service}'>#{service}</a>"
+  end
+
+  def html_page &block
+    "<html><body>" + yield + "</html></body>"
   end
 end
 
