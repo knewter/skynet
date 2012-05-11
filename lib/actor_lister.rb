@@ -10,8 +10,10 @@ class ActorLister
   include Celluloid
 
   def get_instances
-    DCell::Node.all.map do |node|
-      node.all
-    end.flatten.uniq
+    instances = {}
+    DCell::Node.all.each do |node|
+      instances[node.id] = node.all
+    end
+    instances.inspect
   end
 end
