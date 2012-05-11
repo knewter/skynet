@@ -25,11 +25,33 @@ class Server < Reel::Server
 
   def route(connection, request)
     if request.url == "/"
-      future = @lister.future :get_instances
-      connection.respond :ok, future.value
+      instances = @lister.get_instances
+      text = render_actor_listing_html(instances)
+      connection.respond :ok, text
     else
       connection.respond :not_found, "Not found"
     end
+  end
+
+  def render_actor_listing_html(instances)
+    html = "<html><body>"
+    html += "listing services"
+    instances.each_pair do |node, services|
+      if services.any?
+        html += "<h2>Node: #{node}</h2>"
+        html += "<ul>"
+        services.each do |service|
+          html += "<li>#{service}</li>"
+        end
+        html += "</ul>"
+      end
+    end
+    html += "</html></body>"
+    html
+  end
+
+  def link_to_service(service)
+    "<a href='/service/#{service}'>#{service}</a>"
   end
 end
 
