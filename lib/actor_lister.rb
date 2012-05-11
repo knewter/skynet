@@ -1,12 +1,9 @@
-# Join the cluster
-# List the actors available
+require './lib/config'
 require 'celluloid'
 require 'dcell'
-require 'socket'
 
-ip = IPSocket.getaddress(Socket.gethostname)
 # Join the cluster
-DCell.start id: 'actor_lister', addr: "tcp://#{ip}:13116", directory: { id: 'cluster_parent', addr: 'tcp://192.168.1.66:2042' }
+DCell.start id: 'actor_lister', addr: "tcp://#{IP}:13116", directory: { id: 'cluster_parent', addr: "tcp://#{CLUSTER_IP}:2042" }
 
 class ActorLister
   include Celluloid
