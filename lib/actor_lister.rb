@@ -6,7 +6,7 @@ require 'socket'
 
 ip = IPSocket.getaddress(Socket.gethostname)
 # Join the cluster
-DCell.start id: 'actor_lister', addr: ip, directory: { id: 'cluster_parent', addr: 'tcp://192.168.1.66:2042' }
+DCell.start id: 'actor_lister', addr: "tcp://#{ip}:13116", directory: { id: 'cluster_parent', addr: 'tcp://192.168.1.66:2042' }
 
 class ActorLister
   include Celluloid
