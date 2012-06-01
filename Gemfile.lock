@@ -1,6 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    atom-tools (2.0.5)
     celluloid (0.10.0)
     celluloid-io (0.10.0)
       celluloid (~> 0.10.0)
@@ -18,23 +19,20 @@ GEM
       redis
       redis-namespace
       reel (~> 0.0.1)
-    ffi (1.0.11)
     ffi (1.0.11-java)
     ffi-rzmq (0.9.3)
       ffi
     http (0.2.0)
       certified
-    http_parser.rb (0.5.3)
     http_parser.rb (0.5.3-java)
     moneta (0.6.0)
-    nio4r (0.3.3)
     nio4r (0.3.3-java)
     rack (1.4.1)
     rack-protection (1.2.0)
       rack
-    redis (2.2.2)
-    redis-namespace (1.1.0)
-      redis (< 3.0.0)
+    redis (3.0.0)
+    redis-namespace (1.2.0)
+      redis (~> 3.0.0)
     reel (0.0.2)
       celluloid-io (>= 0.8.0)
       http (>= 0.2.0)
@@ -47,9 +45,9 @@ GEM
 
 PLATFORMS
   java
-  ruby
 
 DEPENDENCIES
+  atom-tools
   celluloid
   dcell
   sinatra
