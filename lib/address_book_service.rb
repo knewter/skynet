@@ -9,7 +9,7 @@ class AddressBookService
   include Celluloid
 
   def run
-    contacts = DCell::Node[node][:simple_contacts_service].run
+    contacts = DCell::Node['simple_contacts_service'][:simple_contacts_service].run
     output = ""
     output += "<ul>"
     contacts.each do |contact|
